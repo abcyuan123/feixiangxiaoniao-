@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+
+#container{
+     width: 350px;
+     height: 480px;
+     background: url("../img/bg.jpg");
+     background-size: cover;
+     margin: 0 auto;
+     position: relative;
+     overflow: hidden;
+}
+#head{
+    position: absolute;
+    left: 50px;
+    top: 150px;
+}
+
+#head span{
+    width: 40px;
+    height: 26px;
+    display: inline-block;
+    background: url("../img/bird0.png");
+    position: absolute;
+    top: 20px;
+    right:0;
+}
+.scoring{
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    font-size: 50px;
+    transform: translate(-50%);
+    z-index: 10;
+}
+
+#menu{
+    position: absolute;
+    left: 40%;
+    top: 60%;
+}
+#bird{
+    display: none;
+    position: absolute;
+    left: 30px;
+    top: 40px;
+    z-index: 10;
+}
+#ductWrap li{
+    width: 62px;
+    height: 432px;
+    list-style: none;
+    position: absolute;
+    left: 300px;
+    top: 0px;
+}
+/* 设置上半截管道 */
+.duct_up{
+    background: url("../img/up_mod.png");
+    background-repeat: repeat-y;
+    height: 120px;
+    position: relative;
+} 
+
+.duct_up img{
+    position: absolute;
+    bottom: 0;
+}
+.duct_down{
+    background: url("../img/down_mod.png");
+    background-repeat: repeat-y;
+    height: 203px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.duct_down img{
+    position: absolute;
+    top: 0;
+}
+
+ #gameover{
+     position: absolute;
+     left: 70px;
+     top: 100px;
+     display: none;
+     z-index: 1000;
+ }
+ /* 添加小鸟坠地样式 */
+ .die{
+     top: 395px !important;
+    z-index: 999;
+    transition: 0.5s;
+}
+

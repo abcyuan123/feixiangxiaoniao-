@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- 加载后直接有音乐 -->
+    <audio src="game_music.mp3" autoplay preload="auto"></audio>
+    <div id="container">
+        <!-- 头部 -->
+        <div id="head">
+            <img src="./img/head.jpg" alt="">
+            <!-- head图片后面的小鸟 -->
+            <span></span>
+        </div>
+        <!-- 分数 -->
+        <div class="scoring">
+            0
+        </div>
+        <!-- 开始按钮区域 -->
+        <div id="menu">
+            <img src="./img/start.jpg" alt="" id="start">
+        </div>
+        <!-- 飞翔的小鸟 -->
+        <div id="bird">
+            <img src="./img/down_bird0.png" alt="">
+        </div>
+        <!-- 管道 -->
+        <ul id="ductWrap">
+
+        </ul>
+
+        <img src="./img/game_over.jpg" alt="" id="gameover">
+        <!-- 结束
+        <div class="end">
+             <img src="./img/game_over.jpg" alt="" id="gameover">
+             <div class="record">
+                 <div class="total">
+                     <span class="title">成绩</span>
+                    <span class="score">1</span>
+                    
+                 </div>
+                <div class="heighrecord">
+                    <span class="title">最高纪录</span>
+                    <span class="herecord">1</span>
+                </div>
+             </div>
+             
+        </div> -->
+       <!-- 返回和更多游戏按钮 -->
+       <!-- <div class="btn">
+           <div class="restart">重新开始</div>
+           <div class="othergame">其他游戏</div>
+       </div>  -->
+        
+    </div>
+    <script type="text/javascript" src="./js/index.js"></script>
+</body>
+</html>

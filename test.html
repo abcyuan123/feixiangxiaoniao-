@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>飞翔的小鸟</title>
+    <style type="text/css">
+        @keyframes move {
+            0% {
+                top: 100px;
+            }
+
+            50% {
+                top: 120px;
+            }
+
+            100% {
+                top: 100px;
+            }
+        }
+
+        @keyframes sliderMove {
+            0% {
+                left: 0;
+            }
+
+            100% {
+                left: -343px;
+            }
+        }
+
+        @keyframes birdMove {
+            0% {
+                background: url(img/bird0.png);
+            }
+
+            100% {
+                background: url(img/bird1.png);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #fbWrap {
+            width: 343px;
+            height: 480px;
+            background: url(img/bg.jpg);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #sliderWrap {
+            position: absolute;
+            top: 422px;
+            width: 99999px;
+            animation: sliderMove 4s linear infinite;
+        }
+
+        #sliderWrap img {
+            float: left;
+        }
+
+        #head {
+            position: absolute;
+            top: 100px;
+            left: 70px;
+            animation: move 2s ease-in infinite;
+        }
+
+        #head span {
+            position: absolute;
+            left: 200px;
+            background: url(img/bird0.png);
+            height: 26px;
+            width: 40px;
+            top: 20px;
+            animation: birdMove 0.5s linear infinite;
+        }
+
+        #scoring {
+            position: absolute;
+            top: 50px;
+            text-align: center;
+            width: 100%;
+            z-index: 2;
+        }
+
+        #pipeWrap {
+            height: 100%;
+        }
+
+        .pipe {
+            width: 62px;
+            height: 88%;
+            position: absolute;
+        }
+
+        .top_pipe {
+            position: absolute;
+            top: 0;
+            background: url(img/up_mod.png);
+            width: 62px;
+        }
+
+        .top_pipe div {
+            background: url(img/up_pipe.png) 0 bottom no-repeat;
+        }
+
+        .bottom_pipe {
+            background: url(img/down_mod.png);
+            width: 62px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .bottom_pipe div {
+            background: url(img/down_pipe.png) 0 top no-repeat;
+        }
+
+        #flappyBird {
+            position: absolute;
+            left: 50px;
+            top: 200px;
+            display: none;
+        }
+
+        #menu {
+            position: absolute;
+            left: 127px;
+            top: 300px;
+            text-align: center;
+        }
+
+        #start {
+            height: 29px;
+            width: 85px;
+            float: left;
+            background: url(img/start.jpg);
+        }
+
+        #submit {
+            height: 29px;
+            width: 85px;
+            float: left;
+            margin-left: 30px;
+            background: url(img/submit.jpg);
+        }
+
+        #message {
+            width: 269px;
+            height: 135px;
+            background: url(img/message.jpg);
+            position: absolute;
+            left: 34px;
+            top: 500px;
+            font-size: 30px;
+            font-weight: bold;
+            -webkit-transition: all 1s cubic-bezier(0.2, -0.5, 0.8, 1.5);
+            transition: all 1s cubic-bezier(0.2, -0.5, 0.8, 1.5);
+        }
+
+        #endScoring {
+            position: absolute;
+            right: 30px;
+            top: 32px;
+        }
+
+        #oldScoring {
+            position: absolute;
+            right: 28px;
+            top: 80px;
+        }
+
+        #gameover {
+            position: absolute;
+            top: -50px;
+            left: 65px;
+            -webkit-transition: all 1s cubic-bezier(0.2, -0.5, 0.8, 1.5);
+            transition: all 1s cubic-bezier(0.2, -0.5, 0.8, 1.5);
+        }
+
+        #ok {
+            position: absolute;
+            top: 320px;
+            left: -120px;
+            -webkit-transition: all 1s cubic-bezier(0.2, -0.5, 0.8, 1.5);
+            transition: all 1s cubic-bezier(0.2, -0.5, 0.8, 1.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fbWrap">
+        <div id="sliderWrap">
+           
+           
+            <!-- <img src="img/slider.jpg" alt="">
+            <img src="img/slider.jpg" alt=""> -->
+        
+        
+        </div>
+        <div id="head"><img src="img/head.jpg" alt=""><span></span></div>
+        <div id="scoring"><img src="img/0.jpg" alt=""></div>
+        <ul id="pipeWrap">
+            <!-- <li class="pipe" style="left:200px;">
+                <div class="top_pipe">
+                    <div style="height:120px;"></div>
+                </div>
+                <div class="bottom_pipe">
+                    <div style="height:180px;"></div>
+                </div>
+            </li> -->
+        </ul>
+        <div id="flappyBird" class="up"><img src="img/bird0.png" alt=""></div>
+        <div id="menu">
+            <div id="start"></div>
+            <!-- <div id="submit"></div> -->
+        </div>
+        <div id="message">
+            <div id="endScoring">121</div>
+            <div id="oldScoring">10</div>
+        </div>
+        <div id="ok"><img src="img/ok.jpg" alt=""></div>
+        <div id="gameover"><img src="img/game_over.jpg" alt=""></div>
+        <audio id="gameMusic" loop src="game_music.mp3"></audio>
+        <audio id="bullet" src="bullet.mp3"></audio>
+        <audio id="gameOverMusic" src="game_over.mp3"></audio>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    var fbWrap = document.getElementById("fbWrap");
+    var oHead = document.getElementById("head");//获取头部
+    var scoring = document.getElementById("scoring");//获取分数
+    var pipeWrap = document.getElementById("pipeWrap");
+
+    var flappyBird = document.getElementById("flappyBird");
+    var flappyBirdImg = flappyBird.children[0];
+    var menu = document.getElementById("menu");
+    var start = document.getElementById("start");
+    var message = document.getElementById("message");
+    var endScoring = document.getElementById("endScoring");
+    var oldScoring = document.getElementById("oldScoring");
+    var gameover = document.getElementById("gameover");
+    var gameMusic = document.getElementById("gameMusic");
+    var bullet = document.getElementById("bullet");
+    var gameOverMusic = document.getElementById("gameOverMusic");
+
+    var aScoringImg = ["img/0.jpg", "img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg", "img/6.jpg", "img/7.jpg", "img/8.jpg", "img/9.jpg"];
+
+    var downTimer = null;//小鸟下落定时器
+    var upTimer = null;//小鸟飞起定时器
+    var crashTestTimer = null;//碰撞检测定时器
+    var speedupTimer = null;//切换小鸟图片定时器
+    var createPipeTimer = null;//创建管道
+
+    var speed = 0;//初始速度
+    var maxSpeed = 8;//最大速度
+
+    var gameIsOver = false;//假设游戏结束为假
+    var scoringNumber = 0;//分数
+    var arrImg = [];//分数图片数组
+
+    // 进入游戏就把图片预加载一下
+    loadImg();
+
+    // 重置
+    ok.onclick = function () {
+        // 点击ok重新加载当前文档
+        location.reload(); //重新加载当前文件的方法
+    }
+
+    // 点击开始按钮，游戏开始
+    start.onclick = function (ev) {
+        // 将开始菜单上没用的部分隐藏掉
+        oHead.style.display = 'none';
+        menu.style.display = 'none';
+        // 打开游戏音乐
+        
+        
+        gameMusic.play();
+
+        // 阻止冒泡事件
+        // 不同版本下的事件对象不同，先做下兼容
+        var oEvent = ev || window.event;
+        oEvent.cancelBubble = true;
+
+        // 显示小鸟
+        flappyBird.style.display = 'block';
+        // 如果不点击屏幕，那小鸟下落摔到地上
+        downTimer = setInterval(down, 30);
+
+        // 如果点击屏幕，调用fnTouch
+        document.addEventListener('click', fnTouch, false);
+
+        // 进行碰撞检测
+        crashTestTimer = setInterval(function () {
+            // 先获取屏幕上所有的管道
+            var aLi = pipeWrap.getElementsByTagName('li');
+
+            // 遍历所有的li
+            for (var i = 0; i < aLi.length; i++) {
+                // 每个li中有两根管道，需要分别检测两根管道
+                crashTest(aLi[i].children[0]);
+                crashTest(aLi[i].children[1]);
+            }
+            // 边缘检测
+            rangeTest();
+        }, 30);
+
+        //生成管道
+        createPipeTimer = setInterval(createPipe, 3000);
+
+
+        // 阻止默认行为
+        return false;
+    }
+
+    // 碰撞检测函数
+    function crashTest(obj) {
+
+        var l1 = flappyBird.offsetLeft;
+        var r1 = l1 + flappyBird.offsetWidth;
+        var t1 = flappyBird.offsetTop;
+        var b1 = t1 + flappyBird.offsetHeight;
+
+        console.log('offsetLeft' + obj.offsetLeft);
+        console.log('offsetParent' + obj.offsetParent.offsetLeft);
+
+        //obj.offsetLeft
+        //obj是上管道或者下管道
+        //obj.offsetLeft代表的上下管道距离oLi的left值，所以为0
+        //得不到我们想要获取的值，所以我们写成obj.offsetParent.offsetLeft
+        //obj.offsetParent表示
+        //找到
+        var l2 = obj.offsetParent.offsetLeft;
+        var r2 = l2 + obj.offsetWidth;
+        var t2 = obj.offsetTop;
+        var b2 = t2 + obj.offsetHeight;
+
+        if (r1 > l2 && l1 < r2 && b1 > t2 && t1 < b2) {
+            fnGameOver();
+        }
+    }
+
+    //边缘检测
+    function rangeTest() {
+        var t1 = flappyBird.offsetTop;
+        var b1 = t1 + flappyBird.offsetHeight;
+
+        if (t1 <= 0 || t1 >= 392) { //如果小鸟掉在地上或者超出天花板
+            fnGameOver();
+        }
+    }
+    //游戏结束
+    function fnGameOver() {
+        //游戏结束关闭所以定时器
+        clearInterval(upTimer);
+        clearInterval(downTimer);
+        clearInterval(crashTestTimer);
+        clearInterval(speedupTimer);
+        clearInterval(createPipeTimer);
+
+        //停止游戏音乐
+        gameMusic.pause();
+        //打开游戏结束音乐
+        if (!gameIsOver) {
+          
+           
+           gameOverMusic.play();
+        }
+        //gameover中的各种菜单和按钮出现
+        gameover.style.top = '120px';
+        message.style.top = '180px';
+        ok.style.left = '118px';
+
+        //小鸟落下
+        gameoverDown();
+        //显示分数
+        endScoring.innerHTML = scoringNumber;
+
+        //记录最佳成绩
+        //本地存储，我们选择localstorage存储
+        //首先先从本地读出历史最好成绩
+        //将best跟本次分数比较，如果本次分数高，更新localstorage存储中的最好成绩；如果本次分数低，不做更新
+        if (window.localStorage.getItem('scoring') < scoringNumber) {
+            //将新的最好成绩存入
+            window.localStorage.setItem('scoring', scoringNumber);
+            //在bset的地方显示最好的成绩
+            oldScoring.innerHTML = window.localStorage.getItem('scoring');
+        }
+        //将gameisover置为true
+        gameIsOver = true;
+    }
+
+
+
+
+    //生成管道：隔一定时间间隔生成管道，生成的管道移动
+    function createPipe() {
+        //生成管道，创建元素
+        var oLi = document.createElement('li');
+        oLi.className = 'pipe';
+        var bAddScoring = true;//记录这根管道是否被计算过
+
+        //管道生成后默认在屏幕的最左侧
+        //我们让管道向右移动一个屏幕的宽度，也就是maxWigth
+        //然后让maxWidth递减，并将maxWidth的值赋给管道的.left,实现移动
+        var maxWidth = fbWrap.offsetWidth;
+        oLi.style.left = maxWidth + 'px';
+
+
+        //管道的长度随机生成
+        var topHeight = rand(52, 250);
+        var bottomHeight = 300 - topHeight;
+
+        //向oli添加代码
+        oLi.innerHTML = "<div class='top_pipe'>" +
+            "<div style='height:" + topHeight + "px;'></div>" +
+            "</div>" +
+            "<div class='bottom_pipe'>" +
+            "<div style='height:" + bottomHeight + "px;'></div>" +
+            "</div>"
+
+        //将生成的管道追加到父级
+        pipeWrap.appendChild(oLi);
+
+        //管道移动
+        oLi.leftTimer = setInterval(function () {
+            maxWidth -= 2;
+            //管道移动过程中，gameover，需要清除.leftTimer定时器
+            if (gameIsOver) {
+                clearInterval(oLi.leftTimer);
+                return;
+            }
+            //管道移动出屏幕，需要把管道移除
+            if (maxWidth < -oLi.offsetWidth) {
+                clearInterval(oLi.leftTimer);
+                pipeWrap.removeChild(oLi);
+            }
+            //小鸟顺利的从管道通过，也就是管道顺利的移动到了屏幕左侧附近
+            //小鸟顺利通过管道后需要计算分数，加分
+            //如果不用bAddScoring记录这根管子是否计算过
+            //那么当管道的maxWidth<25之后，每次走到这个判断条件都会进行加分
+            if (bAddScoring && maxWidth <= 25) {
+                scoringNumber++;
+                //计算分数
+                fnScoring();
+                bAddScoring = false;
+            }
+            oLi.style.left = maxWidth + 'px';
+        }, 30);
+    }
+
+    //计算分数的函数
+    function fnScoring() {
+        //先把原来图片清除掉
+        scoring.innerHTML = '';
+        //scoringNumber是一个数，比如13，我们要是想取出1和3，把scoringNumber
+        //转化成一个字符串更容易操作，只需遍历字符串，取出每个字符即可
+        //数字和字符串先加，得到字符串，+空字符串，就把ScoringNumber转化成了字符串
+        var sScoring = scoringNumber + '';
+        for (var i = 0; i < sScoring.length; i++) {
+            var oImg = document.createElement('img');
+            oImg.src = arrImg[sScoring.charAt(i)].src;
+            scoring.appendChild(oImg);
+        }
+    }
+
+    //生成随机
+    function rand(min, max) {
+        return parseInt(min + Math.random() * (max - min));
+    }
+
+    // 小鸟的行为
+    // 上升，下落，屏幕被点击时加速，gameover时挂掉下落
+
+    // 小鸟上升过程
+    function up() {
+        // 向上是一个减速过程
+        speed -= 0.7;
+        // 当速度减小到0的时候开始下落
+        // 对speed进行取整的方法:parseInt()
+        if (parseInt(speed) <= 0) {
+            // 下落首先要换图片
+            flappyBirdImg.src = 'img/down_bird1.png';
+            speed = 0;
+            clearInterval(upTimer);
+            // 开始下落
+            downTimer = setInterval(down, 30);
+        }
+        flappyBird.style.top = flappyBird.offsetTop - speed + 'px';
+    }
+
+    // 封装下落的过程
+    function down() {
+        // 下落是越落越快的过程
+        speed += 0.4;
+        // 速度不允许一直变大，当speed>=maxSpeed时，就让速度一直为maxSpeed，也就是一直以最大速度下落
+        if (speed >= maxSpeed) {
+            speed = maxSpeed;
+        }
+        flappyBird.style.top = flappyBird.offsetTop + speed + 'px';
+    }
+
+    // 屏幕被点击时
+    function fnTouch() {
+        // gameIsOver:通过一个bool值gameIsOver，来记录游戏是否结束
+        // 判断，当游戏的状态为没有结束时，点击屏幕才有作用
+        if (!gameIsOver) {
+            // 播放小鸟被点击的音乐
+            // ////bullet.play();
+            // 清除一下定时器
+            clearInterval(speedupTimer);
+            clearInterval(upTimer);
+            clearInterval(downTimer);
+            // 点击屏幕小鸟飞行的速度变快
+            speed = 8;
+
+            // 小鸟飞行的过程
+            // 点击屏幕的时候小鸟飞行的速度变快变为8，然后就开始减速向上飞
+            // 速度从8开始慢慢递减
+            // 当速度减到0的时候小鸟开始下落
+            // 下落的过程是越落越快的，也就是说速度递增
+
+            // 点击屏幕，让小鸟以8的速度飞两次(飞两个时间间隔)，然后开始减速上升
+            // index用来记录飞行次数
+            var index = 0;
+            speedupTimer = setInterval(function () {
+                // 小鸟由静止到飞行，先更换图片
+                flappyBirdImg.src = 'img/up_bird1.png';
+                index++;
+                if (index > 1) {
+                    clearInterval(speedupTimer);
+                    // 开始减速上飞
+                    upTimer = setInterval(up, 30);
+                }
+
+                // 小鸟向上飞实际上是更改top值
+                flappyBird.style.top = flappyBird.offsetTop - speed + 'px';
+            }, 30);
+        }
+    }
+
+    // 小鸟挂掉
+    function gameoverDown() {
+        flappyBird.style.transition = 'all 0.5s linear';
+        flappyBirdImg.src = 'img/down_bird1.png';
+        flappyBird.style.top = '392px';
+    }
+
+
+
+    // 图片预加载
+    function loadImg() {
+        // aScoringImg:分数图片存放在这个数组中
+        // 循环遍历aScoringImg数组
+        for (var i = 0; i < aScoringImg.length; i++) {
+            // 创建图片的对象
+            var newImg = new Image();
+            // 将aScoringImg数组中的图片路径赋给newImg对象
+            newImg.src = aScoringImg[i];
+            // 图片对象自带onload方法，这个方法会在图片加载完成后立即调用
+            // 也就是保证图片能够提前被预加载出来
+            newImg.onload = function () {
+                // arrImg中的图片已经预加载完成
+                arrImg.push(this);
+            }
+        }
+    }
+</script>
